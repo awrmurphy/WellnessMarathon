@@ -14,11 +14,38 @@ import Login from "../screens/Login";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const getTabBarIcon = (routeName, focused, color, size) => {
+  let iconName;
+
+  const icons = {
+    Welcome: focused
+      ? { icon: "home", color: "#ce5ffa" }
+      : { icon: "home", color: "black" },
+    Profile: focused
+      ? { icon: "user", color: "#ce5ffa" }
+      : { icon: "user", color: "black" },
+    Goals: focused
+      ? { icon: "flag", color: "#ce5ffa" }
+      : { icon: "flag", color: "black" },
+    Journal: focused
+      ? { icon: "open-book", color: "#ce5ffa" }
+      : { icon: "book", color: "black" },
+    Progress: focused
+      ? { icon: "bar-graph", color: "#ce5ffa" }
+      : { icon: "bar-graph", color: "black" },
+  };
+
+  iconName = icons[routeName] || "help-circle-outline";
+
+  return <Entypo name={iconName.icon} size={size} color={iconName.color} />;
+};
+
 function BaseTabs({ loggedUser, setLoggedUser }) {
   return (
     <Tab.Navigator
-      screenOptions={{
+      screenOptions={({ route }) => ({
         headerStyle: { backgroundColor: "#5eb326" },
+        headerTintColor: "#fff",
         headerRight: () => (
           <TouchableOpacity
             onPress={() => setLoggedUser(null)}
@@ -28,7 +55,12 @@ function BaseTabs({ loggedUser, setLoggedUser }) {
             <Entypo name="log-out" size={24} color="black" />
           </TouchableOpacity>
         ),
-      }}
+        tabBarIcon: ({ focused, color, size }) =>
+          getTabBarIcon(route.name, focused, color, size),
+
+        tabBarActiveTintColor: "#5eb326",
+        tabBarInactiveTintColor: "gray",
+      })}
     >
       <Tab.Screen name="Welcome">
         {(props) => <Welcome {...props} loggedUser={loggedUser} />}
