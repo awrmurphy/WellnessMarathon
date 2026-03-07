@@ -8,17 +8,18 @@ export default function Converter() {
   const kg = lbs ? (parseFloat(lbs) / 2.20462).toFixed(2) : "0.00";
 
   return (
-    <View style={appStyles.screen}>
-      <Text>Lbs to Kg Helper</Text>
+    <View style={appStyles.widgetBox}>
+      <Text style={appStyles.headerText}>Lbs to Kg Converter</Text>
       <View>
         <TextInput
+          style={appStyles.plainText}
           placeholder="Weight in lbs"
           keyboardType="numeric"
           value={lbs}
           onChangeText={setLbs}
         />
-        <Text> → </Text>
-        <Text>{kg} kg</Text>
+        <Text style={appStyles.plainText}> → </Text>
+        <Text style={appStyles.plainText}>{kg} kg</Text>
       </View>
     </View>
   );

@@ -10,25 +10,70 @@ const appStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.BACK,
     justifyContent: "center",
-    textAlign: "center",
+    borderRadius: 8,
+    boxShadow: "2px 2px 5px #536b6ace",
   },
   screen: {
     flex: 1,
-    alignItems: "flex-start",
+    alignItems: "center",
     padding: 10,
     backgroundColor: COLORS.SCREEN,
+    justifyContent: "center",
+  },
+  widgetHome: {
+    marginBottom: 10,
+    width: "80%",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    height: "auto",
+    backgroundColor: COLORS.BACK,
+    justifyContent: "center",
+    borderRadius: 8,
+    boxShadow: "2px 2px 5px #536b6ace",
+  },
+  widgetBox: {
+    flexDirection: "column",
+    width: "100%",
+    padding: 5,
   },
   login: {
-    maxWidth: "50%",
-    maxHeight: "50%",
     flex: 1,
+    width: "100%",
     flexDirection: "COLUMN",
     justifyContent: "center",
     alignItems: "center",
-  },  
+    backgroundColor: COLORS.SCREEN,
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  plainText: {
+    textAlign: "center",
+  },
+  buttonHome: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    margin: 5,
+    padding: 2,
+  },
+  generalButton: {
+    flex: 1,
+    alignItems: "center",
+    borderColor: "#0e0d0d",
+    borderWidth: 2,
+    margin: 2,
+    padding: 2,
+    borderRadius: 8,
+    boxShadow: "2px 2px 5px #538582e3",
+    backgroundColor: "#cde2e6",
+    width: "100%",
+  },
 
   // goals styles
-    input: {
+  input: {
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 10,
@@ -38,7 +83,6 @@ const appStyles = StyleSheet.create({
     backgroundColor: "#fff",
     fontSize: 16,
     width: "100%",
-
   },
 
   goalItem: {
@@ -50,8 +94,8 @@ const appStyles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 2,
-    flexDirection: "column",   
-    alignItems: "flex-start",  
+    flexDirection: "column",
+    alignItems: "flex-start",
     width: "100%",
     maxWidth: "100%",
   },
@@ -70,7 +114,7 @@ const appStyles = StyleSheet.create({
   goalButtons: {
     flexDirection: "row",
     justifyContent: "flex-start",
-    gap: 10, 
+    gap: 10,
     marginTop: 6,
   },
 
@@ -102,8 +146,12 @@ const appStyles = StyleSheet.create({
     color: "#333",
     textAlign: "center",
   },
+  incompleteGoal: {
+    color: "#333",
+    fontSize: 16,
+  },
   // journal styles
-    textInput: {
+  textInput: {
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 10,
@@ -116,18 +164,17 @@ const appStyles = StyleSheet.create({
   label: { fontSize: 16, marginBottom: 10 },
   moodScroll: { marginBottom: 15 },
   moodContainer: {
-  flexDirection: "row",
-  flexWrap: "wrap",
-  justifyContent: "space-between",
-  marginBottom: 15,
-},
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    marginBottom: 15,
+  },
   moodButton: {
     paddingVertical: 8,
     paddingHorizontal: 15,
     borderRadius: 10,
     backgroundColor: "#eee",
     marginRight: 10,
-    
   },
   moodButtonSelected: { backgroundColor: "#75e7c5" },
   moodButtonText: { fontSize: 14 },
@@ -145,8 +192,19 @@ const appStyles = StyleSheet.create({
     marginBottom: 15,
   },
   entryDate: { fontSize: 12, color: "#666", marginBottom: 5 },
-  entryMood: { fontSize: 14, fontWeight: "bold", marginBottom: 5, color: "#4a90e2" },
+  entryMood: {
+    fontSize: 14,
+    fontWeight: "bold",
+    marginBottom: 5,
+    color: "#4a90e2",
+  },
   entryText: { fontSize: 14 },
+  journalHeader: {
+    alignItems: "center",
+    width: "100%",
+    paddingBottom: 20,
+    backgroundColor: "#fff",
+  },
 
   // profile styles
   avatar: {
@@ -211,6 +269,31 @@ const appStyles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     fontSize: 16,
+  },
+
+  //progress styles
+
+  //text
+  progressText: {
+    fontSize: 16,
+    marginBottom: 20,
+    textAlign: "center",
+    color: "#333",
+  },
+
+  //progress bar
+  progressBarContainer: {
+    width: "100%",
+    height: 20,
+    backgroundColor: "#e0e0e0",
+    borderRadius: 10,
+    overflow: "hidden",
+    marginBottom: 10,
+  },
+  progressBar: {
+    height: "100%",
+    backgroundColor: "#5eb326",
+    borderRadius: 10,
   },
 });
 

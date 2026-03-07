@@ -1,5 +1,5 @@
 export const COLORS = {
-  BACK: "#e6e8cd",
+  BACK: "#92cecb62",
   FONT: "#75e7c5",
   SCREEN: "#dfd8e5",
 };
@@ -7,4 +7,3 @@ export const COLORS = {
 export const SIZES = {
   TITLE: 36,
 };
-

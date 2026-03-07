@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import appStyles from "../shared/appStyles";
 
 export default function WeightDisplay({
   currentWeight,
@@ -12,38 +13,40 @@ export default function WeightDisplay({
     : "No Date";
 
   return (
-    <View
-      style={{
-        borderWidth: 1,
-        borderColor: "red",
-        flex: 1,
-        flexDirection: "column",
-        width: "100%",
-        padding: 5,
-      }}
-    >
-      <Text>Current Weight:</Text>
-      <Text>{currentWeight?.weight} kg</Text>
-      {currentWeight ? <Text>Last Recorded: {date} </Text> : null}
+    <View style={appStyles.widgetBox}>
+      <Text style={[appStyles.plainText, { textDecorationLine: "underline" }]}>
+        Current Weight:
+      </Text>
+      <Text style={appStyles.plainText}>{currentWeight?.weight} kg</Text>
+      {currentWeight ? (
+        <Text style={appStyles.plainText}>Last Recorded: {date} </Text>
+      ) : null}
 
       <View>
         <TextInput
+          style={appStyles.plainText}
           placeholder="New weight..."
           keyboardType="numeric"
           value={newWeight}
           onChangeText={setNewWeight}
         />
-        <TouchableOpacity
-          onPress={() => {
-            onUpdate(newWeight);
-            setNewWeight("");
-          }}
-        >
-          <Text>Update</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={clearHistory}>
-          <Text>Clear All History</Text>
-        </TouchableOpacity>
+        <View style={appStyles.buttonHome}>
+          <TouchableOpacity
+            style={appStyles.generalButton}
+            onPress={() => {
+              onUpdate(newWeight);
+              setNewWeight("");
+            }}
+          >
+            <Text>Update </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={appStyles.generalButton}
+            onPress={clearHistory}
+          >
+            <Text>Clear All History </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

@@ -4,6 +4,7 @@ import appStyles from "../shared/appStyles";
 import WeightDisplay from "../components/WeightDisplay";
 import WeightLogForm from "../components/WeightLog";
 import Converter from "../components/Converter";
+import { COLORS } from "../shared/constants";
 
 export default function Welcome({ loggedUser }) {
   const [weight, setWeight] = useState(null);
@@ -98,7 +99,7 @@ export default function Welcome({ loggedUser }) {
 
       await Promise.all(deletePromises);
 
-      setWeight(null); // This automatically switches the view back to the log form
+      setWeight(null);
       Alert.alert("Success", "History cleared.");
     } catch (e) {
       Alert.alert("Error", "Could not clear history.");
@@ -113,21 +114,10 @@ export default function Welcome({ loggedUser }) {
     );
 
   return (
-
-    <View
-      style={[
-        appStyles.screen,
-        {
-          borderWidth: 1,
-          borderColor: "red",
-        },
-      ]}
-    >
-      <Text>Weclome {loggedUser?.user}! </Text>
-      <View
-        style={{ flex: 1, borderWidth: 1, borderColor: "red", width: "100%" }}
-      >
-        <Text>Latest Weight Entry </Text>
+    <View style={appStyles.screen}>
+      <Text style={appStyles.headerText}>Welcome {loggedUser?.user}! </Text>
+      <View style={appStyles.widgetHome}>
+        <Text style={appStyles.plainText}>Latest Weight Entry </Text>
         {weight ? (
           <WeightDisplay
             currentWeight={weight}
@@ -138,7 +128,9 @@ export default function Welcome({ loggedUser }) {
           <WeightLogForm onLog={handleWeight} />
         )}
       </View>
-      <Converter />
+      <View style={appStyles.widgetHome}>
+        <Converter />
+      </View>
     </View>
-    );
+  );
 }

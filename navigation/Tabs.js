@@ -1,4 +1,4 @@
-import { TouchableOpacity, Platform } from "react-native";
+import { TouchableOpacity, Platform, View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -10,6 +10,7 @@ import Journal from "../screens/Journal";
 import Profile from "../screens/Profile";
 import Progress from "../screens/Progress";
 import Login from "../screens/Login";
+import appStyles from "../shared/appStyles";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -40,12 +41,53 @@ const getTabBarIcon = (routeName, focused, color, size) => {
   return <Entypo name={iconName.icon} size={size} color={iconName.color} />;
 };
 
-function BaseTabs({ loggedUser, setLoggedUser, goals, setGoals, journalEntries, setJournalEntries }) {
+function BaseTabs({
+  loggedUser,
+  setLoggedUser,
+  goals,
+  setGoals,
+  journalEntries,
+  setJournalEntries,
+}) {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        headerStyle: { backgroundColor: "#5eb326" },
+        headerStyle: {
+          backgroundColor: "#5eb326",
+          borderColor: "red",
+          borderWidth: 1,
+        },
         headerTintColor: "#fff",
+        headerTitleAlign: "center",
+        headerTitleContainerStyle: {
+          left: -115,
+          bottom: 0,
+        },
+        headerTitle: () => (
+          <View
+            style={{
+              marginTop: -85,
+              alignItems: "flex-start",
+              justifyContent: "flex-end",
+              borderColor: "red",
+              borderWidth: 1,
+              height: "100%",
+              flex: 1,
+            }}
+          >
+            <Text style={appStyles.headerText}> Wellness Marathon </Text>
+            <Text
+              style={{
+                fontSize: 18,
+                color: "#fff",
+                fontWeight: "bold",
+              }}
+            >
+              {" "}
+              {route.name}{" "}
+            </Text>
+          </View>
+        ),
         headerRight: () => (
           <TouchableOpacity
             onPress={() => setLoggedUser(null)}
@@ -66,16 +108,30 @@ function BaseTabs({ loggedUser, setLoggedUser, goals, setGoals, journalEntries, 
         {(props) => <Welcome {...props} loggedUser={loggedUser} />}
       </Tab.Screen>
       <Tab.Screen name="Profile">
-        {(props) => <Profile {...props} loggedUser={loggedUser} goals={goals} journalEntries={journalEntries} setJournalEntries={setJournalEntries} />}
+        {(props) => (
+          <Profile
+            {...props}
+            loggedUser={loggedUser}
+            goals={goals}
+            journalEntries={journalEntries}
+            setJournalEntries={setJournalEntries}
+          />
+        )}
       </Tab.Screen>
-      <Tab.Screen name="Goals" > 
-      {(props) => <Goals {...props} goals={goals} setGoals={setGoals} />}
+      <Tab.Screen name="Goals">
+        {(props) => <Goals {...props} goals={goals} setGoals={setGoals} />}
       </Tab.Screen>
-      <Tab.Screen name="Progress"> 
-      {(props) => <Progress {...props} goals={goals} />}
+      <Tab.Screen name="Progress">
+        {(props) => <Progress {...props} goals={goals} />}
       </Tab.Screen>
-      <Tab.Screen name="Journal" >
-        {(props) => <Journal {...props} journalEntries={journalEntries} setJournalEntries={setJournalEntries} />}
+      <Tab.Screen name="Journal">
+        {(props) => (
+          <Journal
+            {...props}
+            journalEntries={journalEntries}
+            setJournalEntries={setJournalEntries}
+          />
+        )}
       </Tab.Screen>
     </Tab.Navigator>
   );
@@ -88,11 +144,7 @@ export default function Tabs() {
   const [journalEntries, setJournalEntries] = useState([]);
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          title: "Wellness Marathon",
-        }}
-      >
+      <Stack.Navigator>
         {loggedUser == null ? (
           <Stack.Screen name="Log In">
             {(props) => (

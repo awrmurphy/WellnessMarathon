@@ -37,31 +37,37 @@ export default function Login({ users, setUsers, setLoggedUser }) {
 
   return (
     <View style={appStyles.login}>
-      <Text>Username: </Text>
-      <TextInput
-        value={user}
-        onChangeText={setUser}
-        placeholder="Username "
-        inputMode="text"
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
-      <Text>Password: </Text>
-      <TextInput
-        value={pass}
-        onChangeText={setPass}
-        placeholder="password"
-        secureTextEntry={true}
-        inputMode="text"
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
-      <TouchableOpacity onPress={val}>
-        <Text>Log In </Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={ver}>
-        <Text>Register </Text>
-      </TouchableOpacity>
+      <View style={{ width: "80%", maxWidth: 400 }}>
+        <Text style={appStyles.headerText}>Username: </Text>
+        <TextInput
+          style={appStyles.input}
+          value={user}
+          onChangeText={setUser}
+          placeholder="Username "
+          inputMode="text"
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+        <Text style={appStyles.headerText}>Password: </Text>
+        <TextInput
+          style={appStyles.input}
+          value={pass}
+          onChangeText={setPass}
+          placeholder="password"
+          secureTextEntry={true}
+          inputMode="text"
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+        <View style={appStyles.buttonHome}>
+          <TouchableOpacity style={appStyles.generalButton} onPress={val}>
+            <Text>Log In </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={appStyles.generalButton} onPress={ver}>
+            <Text>Register </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 }
