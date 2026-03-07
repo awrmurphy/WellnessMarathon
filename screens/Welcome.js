@@ -113,6 +113,7 @@ export default function Welcome({ loggedUser }) {
     );
 
   return (
+
     <View
       style={[
         appStyles.screen,
@@ -139,5 +140,5 @@ export default function Welcome({ loggedUser }) {
       </View>
       <Converter />
     </View>
-  );
+    );
 }

@@ -1,9 +1,10 @@
 export const COLORS = {
-  BACK: "#d6e931",
-  FONT: "#54ddb4",
-  SCREEN: "#bb85ec",
+  BACK: "#e6e8cd",
+  FONT: "#75e7c5",
+  SCREEN: "#dfd8e5",
 };
 
 export const SIZES = {
   TITLE: 36,
 };
+

@@ -50,7 +50,8 @@ export default function Login({ users, setUsers, setLoggedUser }) {
       <TextInput
         value={pass}
         onChangeText={setPass}
-        placeholder="Username "
+        placeholder="password"
+        secureTextEntry={true}
         inputMode="text"
         autoCapitalize="none"
         autoCorrect={false}

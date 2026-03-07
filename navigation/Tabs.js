@@ -40,7 +40,7 @@ const getTabBarIcon = (routeName, focused, color, size) => {
   return <Entypo name={iconName.icon} size={size} color={iconName.color} />;
 };
 
-function BaseTabs({ loggedUser, setLoggedUser }) {
+function BaseTabs({ loggedUser, setLoggedUser, goals, setGoals, journalEntries, setJournalEntries }) {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -65,10 +65,18 @@ function BaseTabs({ loggedUser, setLoggedUser }) {
       <Tab.Screen name="Welcome">
         {(props) => <Welcome {...props} loggedUser={loggedUser} />}
       </Tab.Screen>
-      <Tab.Screen name="Profile" component={Profile} />
-      <Tab.Screen name="Goals" component={Goals} />
-      <Tab.Screen name="Journal" component={Journal} />
-      <Tab.Screen name="Progress" component={Progress} />
+      <Tab.Screen name="Profile">
+        {(props) => <Profile {...props} loggedUser={loggedUser} goals={goals} journalEntries={journalEntries} setJournalEntries={setJournalEntries} />}
+      </Tab.Screen>
+      <Tab.Screen name="Goals" > 
+      {(props) => <Goals {...props} goals={goals} setGoals={setGoals} />}
+      </Tab.Screen>
+      <Tab.Screen name="Progress"> 
+      {(props) => <Progress {...props} goals={goals} />}
+      </Tab.Screen>
+      <Tab.Screen name="Journal" >
+        {(props) => <Journal {...props} journalEntries={journalEntries} setJournalEntries={setJournalEntries} />}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 }
@@ -76,6 +84,8 @@ function BaseTabs({ loggedUser, setLoggedUser }) {
 export default function Tabs() {
   const [users, setUsers] = useState([{ user: "admin", pass: "admin" }]);
   const [loggedUser, setLoggedUser] = useState(null);
+  const [goals, setGoals] = useState([]);
+  const [journalEntries, setJournalEntries] = useState([]);
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -106,6 +116,10 @@ export default function Tabs() {
                 {...props}
                 loggedUser={loggedUser}
                 setLoggedUser={setLoggedUser}
+                goals={goals}
+                setGoals={setGoals}
+                journalEntries={journalEntries}
+                setJournalEntries={setJournalEntries}
               />
             )}
           </Stack.Screen>
