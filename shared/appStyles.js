@@ -29,7 +29,7 @@ const appStyles = StyleSheet.create({
     backgroundColor: COLORS.BACK,
     justifyContent: "center",
     borderRadius: 8,
-    boxShadow: "2px 2px 5px #536b6ace",
+    boxShadow: "2px 2px 5px " + COLORS.SHADOW,
   },
   widgetBox: {
     flexDirection: "column",
@@ -68,13 +68,13 @@ const appStyles = StyleSheet.create({
   generalButton: {
     flex: 1,
     alignItems: "center",
-    borderColor: "#0e0d0d",
+    borderColor: COLORS.BORDERS,
     borderWidth: 2,
     margin: 2,
     padding: 2,
     borderRadius: 8,
-    boxShadow: "2px 2px 5px #538582e3",
-    backgroundColor: "#cde2e6",
+    boxShadow: "2px 2px 5px " + COLORS.SHADOW,
+    backgroundColor: COLORS.BUTTON,
     width: "100%",
   },
 

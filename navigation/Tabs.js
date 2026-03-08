@@ -21,20 +21,20 @@ const getTabBarIcon = (routeName, focused, color, size) => {
 
   const icons = {
     Welcome: focused
-      ? { icon: "home", color: "#ce5ffa" }
-      : { icon: "home", color: "#9b9b9b" },
+      ? { icon: "home", color: COLORS.ACTIVE }
+      : { icon: "home", color: COLORS.INACTIVE },
     Profile: focused
-      ? { icon: "user", color: "#ce5ffa" }
-      : { icon: "user", color: "#9b9b9b" },
+      ? { icon: "user", color: COLORS.ACTIVE }
+      : { icon: "user", color: COLORS.INACTIVE },
     Goals: focused
-      ? { icon: "flag", color: "#ce5ffa" }
-      : { icon: "flag", color: "#9b9b9b" },
+      ? { icon: "flag", color: COLORS.ACTIVE }
+      : { icon: "flag", color: COLORS.INACTIVE },
     Journal: focused
-      ? { icon: "open-book", color: "#ce5ffa" }
-      : { icon: "book", color: "#9b9b9b" },
+      ? { icon: "open-book", color: COLORS.ACTIVE }
+      : { icon: "book", color: COLORS.INACTIVE },
     Progress: focused
-      ? { icon: "bar-graph", color: "#ce5ffa" }
-      : { icon: "bar-graph", color: "#9b9b9b" },
+      ? { icon: "bar-graph", color: COLORS.ACTIVE }
+      : { icon: "bar-graph", color: COLORS.INACTIVE },
   };
 
   iconName = icons[routeName] || "help-circle-outline";
@@ -84,8 +84,8 @@ function BaseTabs({
           getTabBarIcon(route.name, focused, color, size),
 
         tabBarActiveTintColor: "#fff",
-        tabBarInactiveTintColor: "gray",
-        tabBarStyle: { backgroundColor: COLORS.NAV, paddingTop: 10 },
+        tabBarInactiveTintColor: COLORS.INACTIVE,
+        tabBarStyle: { backgroundColor: COLORS.NAV, paddingTop: "3%" },
       })}
     >
       <Tab.Screen name="Welcome">
