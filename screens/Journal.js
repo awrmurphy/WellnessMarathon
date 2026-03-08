@@ -17,7 +17,7 @@ const HeaderRender = ({
   moods,
   addEntry,
 }) => (
-  <View style={appStyles.journalHeader}>
+  <View style={appStyles.screen}>
     <TextInput
       value={journalEntry}
       onChangeText={setJournalEntry}
@@ -73,7 +73,7 @@ export default function Journal({ journalEntries = [], setJournalEntries }) {
 
   return (
     <FlatList
-      style={{ backgroundColor: "#fff" }}
+      style={{ backgroundColor: "#dfd8e5" }}
       contentContainerStyle={{
         padding: 20,
         flexGrow: 1,

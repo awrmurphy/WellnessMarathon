@@ -38,7 +38,7 @@ export default function Profile({ loggedUser, goals=[], journalEntries=[] }) {
 
       <View style={appStyles.stats}>
         <Text style={appStyles.statTitle}>Stats:</Text>
-        <Text>Workouts Completed: 10</Text>
+        <Text>Workouts Completed: 0</Text>
         <Text>Goals set: {goals.length}</Text>
         <Text>Goals achieved: {goals.filter((goal) => goal.completed).length}</Text>
         <Text>Journal Entries: {journalEntries.length}</Text>

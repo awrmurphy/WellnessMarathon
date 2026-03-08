@@ -40,9 +40,8 @@ const appStyles = StyleSheet.create({
     flex: 1,
     width: "100%",
     flexDirection: "COLUMN",
-    justifyContent: "center",
-    alignItems: "center",
     backgroundColor: COLORS.SCREEN,
+    padding: 30,  
   },
   headerText: {
     fontSize: 24,
@@ -119,21 +118,21 @@ const appStyles = StyleSheet.create({
   },
 
   completeButton: {
-    backgroundColor: "#2196F3",
+    backgroundColor: "#63a7df",
     paddingVertical: 6,
     paddingHorizontal: 10,
     borderRadius: 8,
   },
 
   editButton: {
-    backgroundColor: "#FF9800",
+    backgroundColor: "#f1b04e",
     paddingVertical: 6,
     paddingHorizontal: 10,
     borderRadius: 8,
   },
 
   deleteButton: {
-    backgroundColor: "#F44336",
+    backgroundColor: "#f06c63",
     paddingVertical: 6,
     paddingHorizontal: 10,
     borderRadius: 8,
@@ -166,7 +165,7 @@ const appStyles = StyleSheet.create({
   moodContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     marginBottom: 15,
   },
   moodButton: {
