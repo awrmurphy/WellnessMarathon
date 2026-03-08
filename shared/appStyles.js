@@ -171,7 +171,7 @@ const appStyles = StyleSheet.create({
   moodContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-around",
+    justifyContent: "space-around", 
     marginBottom: 15,
   },
   moodButton: {
@@ -294,11 +294,14 @@ const appStyles = StyleSheet.create({
     borderRadius: 10,
     overflow: "hidden",
     marginBottom: 10,
+    borderBlockColor: "#43b3bd",
+
   },
   progressBar: {
     height: "100%",
     backgroundColor: "#5eb326",
     borderRadius: 10,
+    
   },
 });
 

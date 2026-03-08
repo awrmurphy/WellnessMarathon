@@ -2,7 +2,7 @@ export const COLORS = {
   BACK: "#92cecb62",
   FONT: "#75e7c5",
   SCREEN: "#dfd8e5",
-  NAV: "#5eb326",
+  NAV: "#2b75e3",
   ACTIVE: "#ce5ffa",
   INACTIVE: "#868686",
   SHADOW: "#536b6ace",
