@@ -8,7 +8,7 @@ import { COLORS } from "./constants";
 const appStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.BACK,
+    backgroundColor: COLORS.NAV,
     justifyContent: "center",
     borderRadius: 8,
     boxShadow: "2px 2px 5px #536b6ace",
@@ -22,14 +22,14 @@ const appStyles = StyleSheet.create({
   },
   widgetHome: {
     marginBottom: 10,
-    width: "80%",
+    width: "90%",
     justifyContent: "flex-start",
     alignItems: "center",
     height: "auto",
     backgroundColor: COLORS.BACK,
     justifyContent: "center",
     borderRadius: 8,
-    boxShadow: "2px 2px 5px #536b6ace",
+    boxShadow: "2px 2px 5px " + COLORS.SHADOW,
   },
   widgetBox: {
     flexDirection: "column",
@@ -49,6 +49,12 @@ const appStyles = StyleSheet.create({
     marginBottom: 20,
     textAlign: "center",
   },
+  subHead: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
   plainText: {
     textAlign: "center",
   },
@@ -61,13 +67,13 @@ const appStyles = StyleSheet.create({
   generalButton: {
     flex: 1,
     alignItems: "center",
-    borderColor: "#0e0d0d",
+    borderColor: COLORS.BORDERS,
     borderWidth: 2,
     margin: 2,
     padding: 2,
     borderRadius: 8,
-    boxShadow: "2px 2px 5px #538582e3",
-    backgroundColor: "#cde2e6",
+    boxShadow: "2px 2px 5px " + COLORS.SHADOW,
+    backgroundColor: COLORS.BUTTON,
     width: "100%",
   },
 

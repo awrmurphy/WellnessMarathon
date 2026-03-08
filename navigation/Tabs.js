@@ -11,6 +11,7 @@ import Profile from "../screens/Profile";
 import Progress from "../screens/Progress";
 import Login from "../screens/Login";
 import appStyles from "../shared/appStyles";
+import { COLORS } from "../shared/constants";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -20,20 +21,20 @@ const getTabBarIcon = (routeName, focused, color, size) => {
 
   const icons = {
     Welcome: focused
-      ? { icon: "home", color: "#ce5ffa" }
-      : { icon: "home", color: "black" },
+      ? { icon: "home", color: COLORS.ACTIVE }
+      : { icon: "home", color: COLORS.INACTIVE },
     Profile: focused
-      ? { icon: "user", color: "#ce5ffa" }
-      : { icon: "user", color: "black" },
+      ? { icon: "user", color: COLORS.ACTIVE }
+      : { icon: "user", color: COLORS.INACTIVE },
     Goals: focused
-      ? { icon: "flag", color: "#ce5ffa" }
-      : { icon: "flag", color: "black" },
+      ? { icon: "flag", color: COLORS.ACTIVE }
+      : { icon: "flag", color: COLORS.INACTIVE },
     Journal: focused
-      ? { icon: "open-book", color: "#ce5ffa" }
-      : { icon: "book", color: "black" },
+      ? { icon: "open-book", color: COLORS.ACTIVE }
+      : { icon: "book", color: COLORS.INACTIVE },
     Progress: focused
-      ? { icon: "bar-graph", color: "#ce5ffa" }
-      : { icon: "bar-graph", color: "black" },
+      ? { icon: "bar-graph", color: COLORS.ACTIVE }
+      : { icon: "bar-graph", color: COLORS.INACTIVE },
   };
 
   iconName = icons[routeName] || "help-circle-outline";
@@ -53,9 +54,7 @@ function BaseTabs({
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerStyle: {
-          backgroundColor: "#5eb326",
-          borderColor: "red",
-          borderWidth: 1,
+          backgroundColor: COLORS.NAV,
         },
         headerTintColor: "#fff",
         headerTitleAlign: "center",
@@ -65,26 +64,13 @@ function BaseTabs({
         headerTitle: () => (
           <View
             style={{
-              marginTop: -85,
-              alignItems: "flex-start",
-              justifyContent: "flex-end",
-              borderColor: "red",
-              borderWidth: 1,
+              marginTop: "-25%",
+
               height: "100%",
-              flex: 1,
             }}
           >
             <Text style={appStyles.headerText}> Wellness Marathon </Text>
-            <Text
-              style={{
-                fontSize: 18,
-                color: "#fff",
-                fontWeight: "bold",
-              }}
-            >
-              {" "}
-              {route.name}{" "}
-            </Text>
+            <Text style={appStyles.subHead}> {route.name} </Text>
           </View>
         ),
         headerRight: () => (
@@ -93,14 +79,15 @@ function BaseTabs({
             title="Log Out"
             color={Platform.OS === "ios" ? "#fff" : "#ee4c4c"}
           >
-            <Entypo name="log-out" size={24} color="black" />
+            <Entypo name="log-out" size={24} color="#fff" />
           </TouchableOpacity>
         ),
         tabBarIcon: ({ focused, color, size }) =>
           getTabBarIcon(route.name, focused, color, size),
 
-        tabBarActiveTintColor: "#5eb326",
-        tabBarInactiveTintColor: "gray",
+        tabBarActiveTintColor: "#fff",
+        tabBarInactiveTintColor: COLORS.INACTIVE,
+        tabBarStyle: { backgroundColor: COLORS.NAV, paddingTop: "3%" },
       })}
     >
       <Tab.Screen name="Welcome">
