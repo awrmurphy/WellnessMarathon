@@ -17,9 +17,9 @@ export default function WeightDisplay({
       <Text style={[appStyles.plainText, { textDecorationLine: "underline" }]}>
         Current Weight:
       </Text>
-      <Text style={appStyles.plainText}>{currentWeight?.weight} kg</Text>
+      <Text style={appStyles.plainText}> {currentWeight?.weight} kg </Text>
       {currentWeight ? (
-        <Text style={appStyles.plainText}>Last Recorded: {date} </Text>
+        <Text style={appStyles.buttonFont}> Last Recorded: {date} </Text>
       ) : null}
 
       <View>
@@ -38,13 +38,13 @@ export default function WeightDisplay({
               setNewWeight("");
             }}
           >
-            <Text>Update </Text>
+            <Text style={appStyles.buttonFont}> Update </Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={appStyles.generalButton}
             onPress={clearHistory}
           >
-            <Text>Clear All History </Text>
+            <Text style={appStyles.buttonFont}> Clear All History </Text>
           </TouchableOpacity>
         </View>
       </View>

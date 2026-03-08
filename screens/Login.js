@@ -1,4 +1,10 @@
-import { View, Text, TouchableOpacity, TextInput, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  ScrollView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import appStyles from "../shared/appStyles";
@@ -36,13 +42,15 @@ export default function Login({ users, setUsers, setLoggedUser }) {
   };
 
   return (
-    <ScrollView style={appStyles.login}
-      contentContainerStyle={{ alignItems: "center", justifyContent: "center" }}>
+    <ScrollView
+      style={appStyles.login}
+      contentContainerStyle={{ alignItems: "center", justifyContent: "center" }}
+    >
       <View style={{ width: "80%", maxWidth: 400 }}>
         <Text style={appStyles.headerText}>Username: </Text>
         <TextInput
           style={appStyles.input}
-            value={user}
+          value={user}
           onChangeText={setUser}
           placeholder="Username "
           inputMode="text"
@@ -62,10 +70,10 @@ export default function Login({ users, setUsers, setLoggedUser }) {
         />
         <View style={appStyles.buttonHome}>
           <TouchableOpacity style={appStyles.generalButton} onPress={val}>
-            <Text>Log In </Text>
+            <Text style={appStyles.buttonFont}>Log In </Text>
           </TouchableOpacity>
           <TouchableOpacity style={appStyles.generalButton} onPress={ver}>
-            <Text>Register </Text>
+            <Text style={appStyles.buttonFont}>Register </Text>
           </TouchableOpacity>
         </View>
       </View>

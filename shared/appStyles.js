@@ -69,11 +69,15 @@ const appStyles = StyleSheet.create({
     borderColor: COLORS.BORDERS,
     borderWidth: 2,
     margin: 2,
-    padding: 2,
+    padding: 8,
     borderRadius: 8,
     boxShadow: "2px 2px 5px " + COLORS.SHADOW,
     backgroundColor: COLORS.BUTTON,
     width: "100%",
+  },
+  buttonFont: {
+    color: COLORS.FONT,
+    textAlign: "center",
   },
 
   // goals styles
@@ -170,7 +174,7 @@ const appStyles = StyleSheet.create({
   moodContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-around", 
+    justifyContent: "space-around",
     marginBottom: 15,
   },
   moodButton: {
@@ -295,14 +299,13 @@ const appStyles = StyleSheet.create({
     borderRadius: 10,
     overflow: "hidden",
     marginBottom: 10,
-    borderBlockColor: "#43b3bd",
-
+    borderWidth: 2,
+    borderColor: COLORS.BORDERS,
   },
   progressBar: {
     height: "100%",
     backgroundColor: "#5eb326",
     borderRadius: 10,
-    
   },
 });
 

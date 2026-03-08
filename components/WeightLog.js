@@ -24,7 +24,7 @@ export default function WeightLogForm({ onLog }) {
           style={[appStyles.generalButton, { width: "60%" }]}
           onPress={() => onLog(weight)}
         >
-          <Text>Submit </Text>
+          <Text style={appStyles.buttonFont}>Submit </Text>
         </TouchableOpacity>
       </View>
     </View>
