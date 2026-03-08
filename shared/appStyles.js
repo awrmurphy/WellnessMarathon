@@ -8,7 +8,7 @@ import { COLORS } from "./constants";
 const appStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.BACK,
+    backgroundColor: COLORS.NAV,
     justifyContent: "center",
     borderRadius: 8,
     boxShadow: "2px 2px 5px #536b6ace",
@@ -22,7 +22,7 @@ const appStyles = StyleSheet.create({
   },
   widgetHome: {
     marginBottom: 10,
-    width: "80%",
+    width: "90%",
     justifyContent: "flex-start",
     alignItems: "center",
     height: "auto",
@@ -48,6 +48,12 @@ const appStyles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
+    textAlign: "center",
+  },
+  subHead: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
     textAlign: "center",
   },
   plainText: {
