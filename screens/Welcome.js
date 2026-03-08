@@ -52,11 +52,11 @@ export default function Welcome({ loggedUser }) {
         }),
       });
 
-      const newweight = await rs.json();
-
       if (rs.ok) {
         Alert.alert("Success", "Weight logged successfully!");
-        setWeight(newweight);
+        await fetchLatestWeight();
+      } else {
+        Alert.alert("Error", "Failed to save weight.");
       }
     } catch (e) {
       Alert.alert("Connection Error", "Could not reach wger servers.");
