@@ -1,4 +1,4 @@
-import { View, Text, ActivityIndicator, Alert } from "react-native";
+import { View, Text, ActivityIndicator, Alert, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
 import appStyles from "../shared/appStyles";
 import WeightDisplay from "../components/WeightDisplay";
@@ -114,7 +114,9 @@ export default function Welcome({ loggedUser }) {
     );
 
   return (
-    <View style={appStyles.screen}>
+    <ScrollView  style={{ flex: 1, backgroundColor: appStyles.screen.backgroundColor }}
+     contentContainerStyle={{
+     alignItems: "center", justifyContent: "center" }}>
       <Text style={appStyles.headerText}>Welcome {loggedUser?.user}! </Text>
       <View style={appStyles.widgetHome}>
         <Text style={appStyles.plainText}>Latest Weight Entry </Text>
@@ -131,6 +133,6 @@ export default function Welcome({ loggedUser }) {
       <View style={appStyles.widgetHome}>
         <Converter />
       </View>
-    </View>
+    </ScrollView>
   );
 }

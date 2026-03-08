@@ -58,7 +58,9 @@ function BaseTabs({
         },
         headerTintColor: "#fff",
         headerTitleAlign: "center",
-
+        headerTitleContainerStyle: {
+  
+        },
         headerTitle: () => (
           <View
             style={{
