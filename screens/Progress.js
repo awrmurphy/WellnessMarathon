@@ -26,7 +26,7 @@ export default function Progress({ goals = [] }) {
               style={
                 item.completed
                   ? [appStyles.completedGoal, { color: "green" }]
-                  : appStyles.incompleteGoal
+                  : [appStyles.incompleteGoal, { color: "red" }]
               }
             >
               {" "}
