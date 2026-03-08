@@ -10,7 +10,6 @@ const appStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.NAV,
     justifyContent: "center",
-    borderRadius: 8,
     boxShadow: "2px 2px 5px #536b6ace",
   },
   screen: {

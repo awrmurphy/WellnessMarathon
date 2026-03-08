@@ -3,11 +3,11 @@ export const COLORS = {
   FONT: "#75e7c5",
   SCREEN: "#dfd8e5",
   NAV: "#5eb326",
-  ACTIVE: "#ce5ffa",
+  ACTIVE: "#8530a7",
   INACTIVE: "#868686",
-  SHADOW: "#536b6ace",
+  SHADOW: "#6b6b53ce",
   BUTTON: "#34f8c7",
-  BORDERS: "#f7eec9",
+  BORDERS: "#72d2df",
 };
 
 export const SIZES = {
