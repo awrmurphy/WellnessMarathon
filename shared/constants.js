@@ -5,9 +5,9 @@ export const COLORS = {
   NAV: "#2b75e3",
   ACTIVE: "#ce5ffa",
   INACTIVE: "#868686",
-  SHADOW: "#536b6ace",
+  SHADOW: "#6b6b53ce",
   BUTTON: "#34f8c7",
-  BORDERS: "#f7eec9",
+  BORDERS: "#72d2df",
 };
 
 export const SIZES = {

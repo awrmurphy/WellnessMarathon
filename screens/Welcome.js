@@ -114,12 +114,16 @@ export default function Welcome({ loggedUser }) {
     );
 
   return (
-    <ScrollView  style={{ flex: 1, backgroundColor: appStyles.screen.backgroundColor }}
-     contentContainerStyle={{
-     alignItems: "center", justifyContent: "center" }}>
+    <ScrollView
+      style={{ flex: 1, backgroundColor: appStyles.screen.backgroundColor }}
+      contentContainerStyle={{
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Text style={appStyles.headerText}>Welcome {loggedUser?.user}! </Text>
       <View style={appStyles.widgetHome}>
-        <Text style={appStyles.plainText}>Latest Weight Entry </Text>
+        <Text style={appStyles.plainText}> Latest Weight Entry </Text>
         {weight ? (
           <WeightDisplay
             currentWeight={weight}

@@ -10,7 +10,6 @@ const appStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.NAV,
     justifyContent: "center",
-    borderRadius: 8,
     boxShadow: "2px 2px 5px #536b6ace",
   },
   screen: {
@@ -41,7 +40,7 @@ const appStyles = StyleSheet.create({
     width: "100%",
     flexDirection: "COLUMN",
     backgroundColor: COLORS.SCREEN,
-    padding: 30,  
+    padding: 30,
   },
   headerText: {
     fontSize: 24,
@@ -180,9 +179,11 @@ const appStyles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#eee",
     marginRight: 10,
+    width: "40%",
+    marginTop: 10,
   },
   moodButtonSelected: { backgroundColor: "#75e7c5" },
-  moodButtonText: { fontSize: 14 },
+  moodButtonText: { fontSize: 14, textAlign: "center" },
   addButton: {
     backgroundColor: "#4a90e2",
     padding: 15,
