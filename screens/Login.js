@@ -6,35 +6,40 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { use, useState } from "react";
 import appStyles from "../shared/appStyles";
 
-export default function Login({ users, setUsers, setLoggedUser }) {
-  const nav = useNavigation();
-  const [user, setUser] = useState("");
-  const [pass, setPass] = useState("");
+import { useSelector, useDispatch } from "react-redux";
+import {login, register } from "../Redux/loginReducer";
 
-  const val = () => {
-    const foundUser = users.find((u) => u.user === user && u.pass === pass);
+export default function Login() {
+  const dispatch = useDispatch();
+  const users = useSelector((state) => state.login.users);
+  const nav = useNavigation();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const validateLogin = () => {
+    const foundUser = users.find((u) => u.user === username && u.pass === password);
 
     if (foundUser) {
-      setLoggedUser(foundUser);
+      dispatch(login({ user: username, pass: password }));
     } else {
       alert("Invalid credentials");
-      setUser("");
-      setPass("");
+      setUsername("");
+      setPassword("");
     }
   };
-  const ver = () => {
-    const foundUser = users.find((u) => u.user === user);
-    if (!foundUser) {
-      if (user && pass) {
-        setUsers([...users, { user, pass }]);
+  const verifyRegistration = () => {
+    const existingUser = users.find((u) => u.user === username);
+    if (!existingUser) {
+      if (username && password) {
+        dispatch(register({ user: username, pass: password }));
         alert("Account Created!");
-        const newUser = users.find((u) => u.user === user);
-        setLoggedUser(newUser);
+        const newUser = users.find((u) => u.user === username);
+        dispatch(login({ user: username, pass: password }));
       }
-    } else if (!user || !pass) {
+    } else if (!username || !password) {
       alert("Please enter both a username and password.");
     } else {
       alert("Username Taken!");
@@ -50,8 +55,8 @@ export default function Login({ users, setUsers, setLoggedUser }) {
         <Text style={appStyles.headerText}>Username: </Text>
         <TextInput
           style={appStyles.input}
-          value={user}
-          onChangeText={setUser}
+          value={username}
+          onChangeText={setUsername}
           placeholder="Username "
           inputMode="text"
           autoCapitalize="none"
@@ -60,8 +65,8 @@ export default function Login({ users, setUsers, setLoggedUser }) {
         <Text style={appStyles.headerText}>Password: </Text>
         <TextInput
           style={appStyles.input}
-          value={pass}
-          onChangeText={setPass}
+          value={password}
+          onChangeText={setPassword}
           placeholder="password"
           secureTextEntry={true}
           inputMode="text"
@@ -69,10 +74,10 @@ export default function Login({ users, setUsers, setLoggedUser }) {
           autoCorrect={false}
         />
         <View style={appStyles.buttonHome}>
-          <TouchableOpacity style={appStyles.generalButton} onPress={val}>
+          <TouchableOpacity style={appStyles.generalButton} onPress={validateLogin}>
             <Text style={appStyles.buttonFont}>Log In </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={appStyles.generalButton} onPress={ver}>
+          <TouchableOpacity style={appStyles.generalButton} onPress={verifyRegistration}>
             <Text style={appStyles.buttonFont}>Register </Text>
           </TouchableOpacity>
         </View>
