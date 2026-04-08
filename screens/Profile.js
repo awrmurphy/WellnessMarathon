@@ -1,11 +1,12 @@
 import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import appStyles from "../shared/appStyles";
+import { useSelector } from "react-redux";
 
-export default function Profile({
-  loggedUser,
-  goals = [],
-  journalEntries = [],
-}) {
+export default function Profile() {
+  const loggedUser = useSelector((state) => state.login.currentUser);
+  const goals = useSelector((state) => state.goals.goals);
+  const journalEntries = useSelector((state) => state.journal.entries);
+
   const user = loggedUser || {};
   const preferences = user.preferences || {
     notifications: false,

@@ -9,13 +9,16 @@ import {
 } from "react-native";
 import appStyles from "../shared/appStyles";
 
+import { useSelector, useDispatch } from "react-redux";
+import { addEntry, deleteEntry } from "../Redux/journalReducer";
+
 const HeaderRender = ({
   journalEntry,
   setJournalEntry,
   mood,
   setMood,
   moods,
-  addEntry,
+  handleAddEntry,
 }) => (
   <View style={appStyles.screen}>
     <TextInput
@@ -39,13 +42,15 @@ const HeaderRender = ({
         </TouchableOpacity>
       ))}
     </View>
-    <TouchableOpacity onPress={addEntry} style={appStyles.button}>
+    <TouchableOpacity onPress={handleAddEntry} style={appStyles.button}>
       <Text style={appStyles.buttonText}>Add Entry</Text>
     </TouchableOpacity>
   </View>
 );
 
-export default function Journal({ journalEntries = [], setJournalEntries }) {
+export default function Journal() {
+  const dispatch = useDispatch();
+  const journalEntries = useSelector((state) => state.journal.entries);
   const [journalEntry, setJournalEntry] = useState("");
   const [mood, setMood] = useState("");
 
@@ -58,17 +63,17 @@ export default function Journal({ journalEntries = [], setJournalEntries }) {
     " Neutral ",
   ];
 
-  const addEntry = () => {
+  const handleAddEntry = () => {
     if (journalEntry.trim() && mood) {
       const newEntry = { id: Date.now().toString(), text: journalEntry, mood };
-      setJournalEntries([...journalEntries, newEntry]);
+      dispatch(addEntry(newEntry));
       setJournalEntry("");
       setMood("");
     }
   };
 
-  const deleteEntry = (id) => {
-    setJournalEntries(journalEntries.filter((entry) => entry.id !== id));
+  const handleDeleteEntry = (id) => {
+    dispatch(deleteEntry(id));
   };
 
   return (
@@ -87,7 +92,7 @@ export default function Journal({ journalEntries = [], setJournalEntries }) {
           mood={mood}
           setMood={setMood}
           moods={moods}
-          addEntry={addEntry}
+          handleAddEntry={handleAddEntry}
         />
       }
       renderItem={({ item }) => (
@@ -95,7 +100,7 @@ export default function Journal({ journalEntries = [], setJournalEntries }) {
           <Text style={appStyles.entryMood}>{item.mood}</Text>
           <Text style={appStyles.entryText}>{item.text}</Text>
           <TouchableOpacity
-            onPress={() => deleteEntry(item.id)}
+            onPress={() => handleDeleteEntry(item.id)}
             style={appStyles.deleteButton}
           >
             <Text style={appStyles.buttonText}> Delete </Text>

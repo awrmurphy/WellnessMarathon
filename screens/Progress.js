@@ -1,7 +1,9 @@
 import { View, Text, FlatList, StyleSheet } from "react-native";
 import appStyles from "../shared/appStyles";
+import { useSelector } from "react-redux";
 
-export default function Progress({ goals = [] }) {
+export default function Progress() {
+  const goals = useSelector((state) => state.goals.goals);
   const totalGoals = goals.length;
   const completedGoals = goals.filter((goal) => goal.completed).length;
   const progressPercentage =
