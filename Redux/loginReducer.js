@@ -15,7 +15,14 @@ export const loginUser = createAsyncThunk(
         const userData = userSnap.data();
         dispatch(setGoals(userData.goals || []));
         dispatch(setEntries(userData.journal || []));
-        return username;
+        return {
+          username: username,
+          email: userData.email || `${username}@example.com`,
+          preferences: userData.preferences || {
+            theme: "Light",
+            notifications: false,
+          },
+        };
       }
       return rejectWithValue("Invalid credentials");
     } catch (error) {
@@ -34,7 +41,11 @@ export const registerUser = createAsyncThunk(
 
       const newUser = { password, goals: [], journal: [] };
       await setDoc(userRef, newUser);
-      return username;
+      return {
+        username,
+        email: `${username}@example.com`,
+        preferences: { theme: "Light", notifications: false },
+      };
     } catch (error) {
       return rejectWithValue(error.message);
     }

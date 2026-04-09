@@ -2,7 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { db } from "../config/firebase.config";
 import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 
-const getUserRef = (state) => doc(db, "users", state.login.currentUser);
+const getUserRef = (state) =>
+  doc(db, "users", state.login.currentUser.username);
 
 export const addEntryToUser = createAsyncThunk(
   "journal/addEntry",

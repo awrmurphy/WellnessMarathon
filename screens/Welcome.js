@@ -5,6 +5,7 @@ import WeightDisplay from "../components/WeightDisplay";
 import WeightLogForm from "../components/WeightLog";
 import Converter from "../components/Converter";
 import { COLORS } from "../shared/constants";
+import { useSelector } from "react-redux";
 
 export default function Welcome() {
   const loggedUser = useSelector((state) => state.login.currentUser);
@@ -122,7 +123,7 @@ export default function Welcome() {
         justifyContent: "center",
       }}
     >
-      <Text style={appStyles.headerText}>Welcome {loggedUser?.user}! </Text>
+      <Text style={appStyles.headerText}>Welcome {loggedUser?.username}! </Text>
       <View style={appStyles.widgetHome}>
         <Text style={appStyles.plainText}> Latest Weight Entry </Text>
         {weight ? (

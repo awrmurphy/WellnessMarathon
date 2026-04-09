@@ -12,8 +12,8 @@ export default function Profile() {
     notifications: false,
     theme: "Light",
   };
-  const username = user.user || " Guest ";
-  const email = user.email || " Not logged in ";
+  const username = ` ${loggedUser?.username} ` || " Guest ";
+  const email = ` ${loggedUser?.email} ` || " No Email Provided ";
   const initials = username
     .split(" ")
     .map((n) => n[0])
