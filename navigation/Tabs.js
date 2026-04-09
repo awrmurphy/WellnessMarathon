@@ -46,17 +46,16 @@ const getTabBarIcon = (routeName, focused, color, size) => {
 };
 
 function BaseTabs() {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerStyle: {
-        backgroundColor: COLORS.NAV, },
+          backgroundColor: COLORS.NAV,
+        },
         headerTintColor: "#fff",
         headerTitleAlign: "center",
-        headerTitleContainerStyle: {
-  
-        },
+        headerTitleContainerStyle: {},
         headerTitle: () => (
           <View
             style={{
@@ -85,36 +84,27 @@ function BaseTabs() {
         tabBarStyle: { backgroundColor: COLORS.NAV, paddingTop: "3%" },
       })}
     >
-      <Tab.Screen name="Welcome" component={Welcome}
-        // /* {(props) => <Welcome {...props} loggedUser={loggedUser} />} */
-      />
+      <Tab.Screen name="Welcome" component={Welcome} />
       <Tab.Screen name="Profile" component={Profile} />
-
       <Tab.Screen name="Goals" component={Goals} />
-        {/* {(props) => <Goals {...props} goals={goals} setGoals={setGoals} />} */}
-     
-      <Tab.Screen name="Progress" component={Progress}/>
-      <Tab.Screen name="Journal" component={Journal}/>
-        {/* {/* {(props) => (
-          // <Journal
-          //   {...props}
-          //   journalEntries={journalEntries}
-          //   setJournalEntries={setJournalEntries}
-          // /> */}
-  
+      <Tab.Screen name="Progress" component={Progress} />
+      <Tab.Screen name="Journal" component={Journal} />
     </Tab.Navigator>
   );
 }
 
 export default function Tabs() {
-  // const [users, setUsers] = useState([{ user: "admin", pass: "admin" }]);
-  // const [loggedUser, setLoggedUser] = useState(null);
-  // const [goals, setGoals] = useState([]);
-  // const [journalEntries, setJournalEntries] = useState([]);
- 
-     
-     const loggedUser = useSelector((state) => state.login.currentUser);
-     
+  const loggedUser = useSelector((state) => state.login.currentUser);
+  const isLoading = useSelector((state) => state.login.isLoading);
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={COLORS.ACTIVE} />
+      </View>
+    );
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator>

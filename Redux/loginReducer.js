@@ -1,35 +1,90 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { db } from "../config/firebase.config";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { setGoals } from "./goalsReducer";
+import { setEntries } from "./journalReducer";
 
-const intialState = {
-    users: [ {user: 'admin', password: 'admin'}],
-    isLoggedIn: false,
-    currentUser: null
-}
+export const loginUser = createAsyncThunk(
+  "login/loginUser",
+  async ({ username, password }, { dispatch, rejectWithValue }) => {
+    try {
+      const userRef = doc(db, "users", username);
+      const userSnap = await getDoc(userRef);
 
-const loginReducer = createSlice({
-    name: 'login',
-    initialState: intialState,
-    reducers: {
-        login: (state, action) => {
-            const { user, password } = action.payload;
-            const foundUser = state.users.find(u => u.user === user && u.password === password);
-            if (foundUser) {
-                state.isLoggedIn = true;
-                state.currentUser = user;
-            }
-        },
-        logout: (state) => {
-            state.isLoggedIn = false;
-            state.currentUser = null;
-        },
-        register: (state, action) => {
-            const { user, password } = action.payload;
-            const existingUser = state.users.find(u => u.user === user);
-            if (!existingUser) {
-                state.users.push({ user, password });
-            }
-        }
+      if (userSnap.exists() && userSnap.data().password === password) {
+        const userData = userSnap.data();
+        dispatch(setGoals(userData.goals || []));
+        dispatch(setEntries(userData.journal || []));
+        return username;
+      }
+      return rejectWithValue("Invalid credentials");
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
+  },
+);
+
+export const registerUser = createAsyncThunk(
+  "login/registerUser",
+  async ({ username, password }, { rejectWithValue }) => {
+    try {
+      const userRef = doc(db, "users", username);
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) return rejectWithValue("Username taken");
+
+      const newUser = { password, goals: [], journal: [] };
+      await setDoc(userRef, newUser);
+      return username;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  },
+);
+
+const loginSlice = createSlice({
+  name: "login",
+  initialState: {
+    isLoggedIn: false,
+    currentUser: null,
+    error: null,
+    isLoading: false,
+  },
+  reducers: {
+    logout: (state) => {
+      state.isLoggedIn = false;
+      state.currentUser = null;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.isLoggedIn = true;
+        state.currentUser = action.payload;
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(registerUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.isLoggedIn = true;
+        state.currentUser = action.payload;
+        state.isLoading = false;
+        state.error = null;
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      });
+  },
 });
-export const { login, logout, register } = loginReducer.actions;
-export default loginReducer.reducer;
+
+export const { logout } = loginSlice.actions;
+export default loginSlice.reducer;

@@ -9,51 +9,48 @@ import {
 import appStyles from "../shared/appStyles";
 
 import { useSelector, useDispatch } from "react-redux";
-import { addGoal, toggleGoalCompletion, deleteGoal, editGoal } from "../Redux/goalsReducer";
+import {
+  addGoalToUser,
+  deleteGoalFromUser,
+  toggleGoalInUser,
+  editGoalInUser,
+} from "../Redux/goalsReducer";
 
 export default function Goals() {
+  const dispatch = useDispatch();
+  const goals = useSelector((state) => state.goals.goals);
 
-     const dispatch = useDispatch();
-     const goals = useSelector((state) => state.goals.goals);
-
-     const [goalText, setGoalText] = useState("");
-     const [editingId, setEditingId] = useState(null);
-     const [selectedGoalId, setSelectedGoalId] = useState(null);
-    //  dispatch(addGoal({ id: Date.now().toString(), text: "New Goal", completed: false }));
-    //  dispatch(deleteGoal(goalId));
-    //  dispatch(editGoal({ id: goalId, title: "Updated Goal", description: "Updated Description" }));
-    //  dispatch(toggleGoalCompletion(goalId));
-
+  const [goalText, setGoalText] = useState("");
+  const [editingId, setEditingId] = useState(null);
+  const [selectedGoalId, setSelectedGoalId] = useState(null);
 
   const addGoalHandler = () => {
     if (goalText.trim()) {
-      dispatch(addGoal({ id: Date.now().toString(), text: goalText, completed: false }));
+      dispatch(addGoalToUser(goalText));
       setGoalText("");
     }
   };
   const handleSaveGoal = () => {
-    if (goalText.trim() ||  !editingId) return;
-    dispatch(editGoal({ id: editingId, text: goalText }));
+    const goalToEdit = goals.find((g) => g.id === editingId);
+    if (goalText.trim() && editingId) {
+      dispatch(editGoalInUser({ goalObject: goalToEdit, newText: goalText }));
       setGoalText("");
       setEditingId(null);
-  };
-
-  const handleToggleGoalCompletion = (id) => {
-    dispatch(toggleGoalCompletion(id));
-  };
-  const handleDeleteGoal = (id) => {
-    dispatch(deleteGoal(id));
-  };
-
-  const editGoal = (id) => {
-    const goal = goals.find(g => g.id === id);
-    if (goal) {
-      setGoalText(goal.text);
-      setEditingId(id);
     }
   };
 
+  const handleToggleGoalCompletion = (item) => {
+    dispatch(toggleGoalInUser(item));
+  };
 
+  const handleDeleteGoal = (item) => {
+    dispatch(deleteGoalFromUser(item));
+  };
+
+  const editGoal = (item) => {
+    setGoalText(item.text);
+    setEditingId(item.id);
+  };
 
   return (
     <View style={appStyles.screen}>
@@ -68,7 +65,7 @@ export default function Goals() {
         style={appStyles.button}
       >
         <Text style={appStyles.buttonText}>
-          {editingId ? "Save Goal" : "Add Goal"}
+          {editingId ? "Update Goal" : "Add Goal"}
         </Text>
       </TouchableOpacity>
       <FlatList
@@ -94,7 +91,7 @@ export default function Goals() {
             {selectedGoalId === item.id && (
               <View style={appStyles.goalButtons}>
                 <TouchableOpacity
-                  onPress={() => handleToggleGoalCompletion(item.id)}
+                  onPress={() => handleToggleGoalCompletion(item)}
                   style={appStyles.completeButton}
                 >
                   <Text style={appStyles.buttonText}>
@@ -102,13 +99,13 @@ export default function Goals() {
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => editGoal(item.id)}
+                  onPress={() => editGoal(item)}
                   style={appStyles.editButton}
                 >
                   <Text style={appStyles.buttonText}>Edit</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  onPress={() => handleDeleteGoal(item.id)}
+                  onPress={() => handleDeleteGoal(item)}
                   style={appStyles.deleteButton}
                 >
                   <Text style={appStyles.buttonText}>Delete</Text>

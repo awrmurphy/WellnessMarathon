@@ -8,9 +8,8 @@ import {
   StyleSheet,
 } from "react-native";
 import appStyles from "../shared/appStyles";
-
 import { useSelector, useDispatch } from "react-redux";
-import { addEntry, deleteEntry } from "../Redux/journalReducer";
+import { addEntryToUser, deleteEntryFromUser } from "../Redux/journalReducer";
 
 const HeaderRender = ({
   journalEntry,
@@ -65,15 +64,14 @@ export default function Journal() {
 
   const handleAddEntry = () => {
     if (journalEntry.trim() && mood) {
-      const newEntry = { id: Date.now().toString(), text: journalEntry, mood };
-      dispatch(addEntry(newEntry));
+      dispatch(addEntryToUser({ text: journalEntry, mood }));
       setJournalEntry("");
       setMood("");
     }
   };
 
-  const handleDeleteEntry = (id) => {
-    dispatch(deleteEntry(id));
+  const handleDeleteEntry = (item) => {
+    dispatch(deleteEntryFromUser(item));
   };
 
   return (
@@ -100,7 +98,7 @@ export default function Journal() {
           <Text style={appStyles.entryMood}>{item.mood}</Text>
           <Text style={appStyles.entryText}>{item.text}</Text>
           <TouchableOpacity
-            onPress={() => handleDeleteEntry(item.id)}
+            onPress={() => handleDeleteEntry(item)}
             style={appStyles.deleteButton}
           >
             <Text style={appStyles.buttonText}> Delete </Text>

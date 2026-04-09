@@ -6,11 +6,12 @@ import WeightLogForm from "../components/WeightLog";
 import Converter from "../components/Converter";
 import { COLORS } from "../shared/constants";
 
-export default function Welcome({ loggedUser }) {
+export default function Welcome() {
+  const loggedUser = useSelector((state) => state.login.currentUser);
   const [weight, setWeight] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const API_TOKEN = "f08b45fe576e04fbc3e5e0ad797a6b33a699dce3";
+  const API_TOKEN = process.env.EXPO_PUBLIC_WGER_API_TOKEN;
 
   const fetchLatestWeight = async () => {
     setLoading(true);

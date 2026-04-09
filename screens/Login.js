@@ -4,45 +4,40 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Alert,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { use, useState } from "react";
+import { useState } from "react";
 import appStyles from "../shared/appStyles";
 
-import { useSelector, useDispatch } from "react-redux";
-import {login, register } from "../Redux/loginReducer";
+import { useDispatch } from "react-redux";
+import { loginUser, registerUser } from "../Redux/loginReducer";
 
 export default function Login() {
   const dispatch = useDispatch();
-  const users = useSelector((state) => state.login.users);
-  const nav = useNavigation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const validateLogin = () => {
-    const foundUser = users.find((u) => u.user === username && u.pass === password);
-
-    if (foundUser) {
-      dispatch(login({ user: username, pass: password }));
+  const handleLogin = async () => {
+    if (username && password) {
+      try {
+        await dispatch(loginUser({ username, password })).unwrap();
+      } catch (err) {
+        Alert.alert("Login Failed", err);
+      }
     } else {
-      alert("Invalid credentials");
-      setUsername("");
-      setPassword("");
+      Alert.alert("Error", "Please fill in all fields.");
     }
   };
-  const verifyRegistration = () => {
-    const existingUser = users.find((u) => u.user === username);
-    if (!existingUser) {
-      if (username && password) {
-        dispatch(register({ user: username, pass: password }));
-        alert("Account Created!");
-        const newUser = users.find((u) => u.user === username);
-        dispatch(login({ user: username, pass: password }));
+  const handleRegister = async () => {
+    if (username && password) {
+      try {
+        await dispatch(registerUser({ username, password })).unwrap();
+        Alert.alert("Success", "Account Created!");
+      } catch (err) {
+        Alert.alert("Registration Failed", err);
       }
-    } else if (!username || !password) {
-      alert("Please enter both a username and password.");
     } else {
-      alert("Username Taken!");
+      Alert.alert("Error", "Please fill in all fields.");
     }
   };
 
@@ -74,10 +69,16 @@ export default function Login() {
           autoCorrect={false}
         />
         <View style={appStyles.buttonHome}>
-          <TouchableOpacity style={appStyles.generalButton} onPress={validateLogin}>
+          <TouchableOpacity
+            style={appStyles.generalButton}
+            onPress={handleLogin}
+          >
             <Text style={appStyles.buttonFont}>Log In </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={appStyles.generalButton} onPress={verifyRegistration}>
+          <TouchableOpacity
+            style={appStyles.generalButton}
+            onPress={handleRegister}
+          >
             <Text style={appStyles.buttonFont}>Register </Text>
           </TouchableOpacity>
         </View>
