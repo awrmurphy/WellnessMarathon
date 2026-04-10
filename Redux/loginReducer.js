@@ -59,11 +59,19 @@ const loginSlice = createSlice({
     currentUser: null,
     error: null,
     isLoading: false,
+    isNewUser: false,
   },
   reducers: {
     logout: (state) => {
       state.isLoggedIn = false;
       state.currentUser = null;
+    },
+    onBoard: (state, action) => {
+      state.isNewUser = false;
+      state.currentUser = {
+        ...state.currentUser,
+        ...action.payload,
+      };
     },
   },
   extraReducers: (builder) => {
@@ -88,6 +96,7 @@ const loginSlice = createSlice({
         state.isLoggedIn = true;
         state.currentUser = action.payload;
         state.isLoading = false;
+        state.isNewUser = true;
         state.error = null;
       })
       .addCase(registerUser.rejected, (state, action) => {
@@ -97,5 +106,5 @@ const loginSlice = createSlice({
   },
 });
 
-export const { logout } = loginSlice.actions;
+export const { logout, onBoard } = loginSlice.actions;
 export default loginSlice.reducer;

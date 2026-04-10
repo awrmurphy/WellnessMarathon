@@ -21,6 +21,7 @@ import { COLORS } from "../shared/constants";
 import { logout } from "../Redux/loginReducer";
 
 import { useSelector, useDispatch } from "react-redux";
+import Onboarding from "../screens/Onboarding";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -102,6 +103,7 @@ function BaseTabs() {
 export default function Tabs() {
   const loggedUser = useSelector((state) => state.login.currentUser);
   const isLoading = useSelector((state) => state.login.isLoading);
+  const isNewUser = useSelector((state) => state.login.isNewUser);
 
   if (isLoading) {
     return (
@@ -121,6 +123,12 @@ export default function Tabs() {
           <Stack.Screen
             name="Log In"
             component={Login}
+            options={{ headerShown: false }}
+          />
+        ) : isNewUser ? (
+          <Stack.Screen
+            name="On Boarding"
+            component={Onboarding}
             options={{ headerShown: false }}
           />
         ) : (
