@@ -79,24 +79,34 @@ const Onboarding = () => {
           status={theme === "Light" ? "checked" : "unchecked"}
           onPress={() => setTheme("Light")}
           color={theme === "Light" ? COLORS.ACTIVE : COLORS.INACTIVE}
-        />{" "}
+        />
         <Text> Light </Text>
         <RadioButton
           value="Dark"
           status={theme === "Dark" ? "checked" : "unchecked"}
           onPress={() => setTheme("Dark")}
           color={theme === "Dark" ? COLORS.ACTIVE : COLORS.INACTIVE}
-        />{" "}
+        />
         <Text> Dark </Text>
       </View>
-      <Text>Notifications:</Text>
-      <Text> {notifications ? "Enabled" : "Disabled"} </Text>
-      <Switch
-        value={notifications}
-        onValueChange={(value) => setNotifications(value)}
-        color={COLORS.ACTIVE}
-      />
-      <Text>First Goal (Optional):</Text>
+      <Text> Notifications: </Text>
+      <View style={{ flexDirection: "row" }}>
+        <Text
+          style={{
+            width: "auto",
+          }}
+        >
+          {" "}
+          {notifications ? " Enabled " : " Disabled "}{" "}
+        </Text>
+        <Switch
+          style={{ width: "auto" }}
+          value={notifications}
+          onValueChange={(value) => setNotifications(value)}
+          color={COLORS.ACTIVE}
+        />
+      </View>
+      <Text> First Goal (Optional): </Text>
       <TextInput
         style={appStyles.input}
         value={initialGoal}

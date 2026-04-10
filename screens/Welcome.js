@@ -123,7 +123,10 @@ export default function Welcome() {
         justifyContent: "center",
       }}
     >
-      <Text style={appStyles.headerText}>Welcome {loggedUser?.username}! </Text>
+      <Text style={appStyles.headerText}>
+        {" "}
+        Welcome {loggedUser?.username}!{" "}
+      </Text>
       <View style={appStyles.widgetHome}>
         <Text style={appStyles.plainText}> Latest Weight Entry </Text>
         {weight ? (
