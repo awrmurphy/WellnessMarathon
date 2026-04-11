@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  KeyboardAvoidingView,
 } from "react-native";
 import { doc, updateDoc } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,57 +16,85 @@ import { COLORS } from "../shared/constants";
 import appStyles from "../shared/appStyles";
 import { onBoard } from "../Redux/loginReducer";
 import { setGoals } from "../Redux/goalsReducer";
+import { useRoute } from "@react-navigation/native";
 
 const Onboarding = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [theme, setTheme] = useState("Light");
-  const [notifications, setNotifications] = useState(false);
+  const loggedUser = useSelector((state) => state.login.currentUser);
+  const route = useRoute();
+  const isEditMode = route.name === "EditProfile" || loggedUser?.name;
+
+
+  const [name, setName] = useState(loggedUser?.name || "");
+  const [email, setEmail] = useState(loggedUser?.email || "");
+  const [theme, setTheme] = useState(
+    loggedUser?.preferences?.theme || "Light"
+  );
+  const [notifications, setNotifications] = useState(
+    loggedUser?.preferences?.notifications || false
+  );
   const [initialGoal, setInitialGoal] = useState("");
   const dispatch = useDispatch();
-  const loggedUser = useSelector((state) => state.login.currentUser);
+
+
+
 
   const handlePress = async () => {
     if (!name || !email) {
-      Alert.alert(
-        "Error",
-        "Please enter at least your name and email address to continue",
-      );
+      Alert.alert("Error", "Please enter name and email");
       return;
     }
+
     try {
+      if (!loggedUser?.username) return;
       const userRef = doc(db, "users", loggedUser.username);
-      const newGoal = initialGoal
-        ? { id: Date.now().toString(), text: initialGoal, completed: false }
-        : null;
+
+      const newGoal =
+        initialGoal && !isEditMode
+          ? { id: Date.now().toString(), text: initialGoal, completed: false }
+          : null;
+
       await updateDoc(userRef, {
-        name: name,
-        email: email,
+        name,
+        email,
         preferences: { theme, notifications },
-        goals: newGoal ? [newGoal] : [],
+        ...(newGoal ? { goals: [newGoal] } : {}),
       });
 
       dispatch(
         onBoard({
-          name: name,
-          email: email,
+          name,
+          email,
           preferences: { theme, notifications },
-        }),
+        })
       );
 
       if (newGoal) {
         dispatch(setGoals([newGoal]));
       }
+
+      Alert.alert(
+        "Success",
+        isEditMode ? "Profile updated!" : "Setup complete!"
+      );
     } catch (e) {
+      console.error(e);
       Alert.alert("Error", "Error creating profile");
       console.error("Error updating profile: ", e);
     }
   };
 
   return (
-    <ScrollView>
-      <Text style={appStyles.headerText}>Let's set up your profile</Text>
+<KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+  <ScrollView style={{ flex: 1, backgroundColor: appStyles.screen.backgroundColor }} contentContainerStyle={{ padding: appStyles.screen.padding }}>
+      <Text style={appStyles.headerText}>
+  {isEditMode ? "Edit Profile" : "Let's set up your profile"}</Text>
+
+
       <Text> Full Name: </Text>
+      <TextInput style={[appStyles.input, { width: "90%" }]} value={name} onChangeText={setName} />
+      <Text> Email Address: </Text>
+      <TextInput
+        style={[appStyles.input, { width: "90%" }]}
       <TextInput
         style={appStyles.input}
         value={name}
@@ -113,17 +142,27 @@ const Onboarding = () => {
           color={COLORS.ACTIVE}
         />
       </View>
-      <Text> First Goal (Optional): </Text>
-      <TextInput
-        style={appStyles.input}
-        value={initialGoal}
-        onChangeText={setInitialGoal}
-        placeholder="e.g. Drink more water"
-      />
-      <TouchableOpacity onPress={handlePress} style={appStyles.button}>
-        <Text style={appStyles.buttonFont}> Finish Setup </Text>
+      {!isEditMode && (
+        <>
+          <Text> First Goal (Optional): </Text>
+          <TextInput
+            style={[appStyles.input, { width: "100%" }]}
+            value={initialGoal}
+            onChangeText={setInitialGoal}
+            placeholder="e.g. Drink more water"
+          />
+        </>
+      )}
+      <TouchableOpacity
+        onPress={handlePress}
+            style={[appStyles.button, { width: "70%", alignSelf: "center" }]}
+          >
+        <Text style={appStyles.buttonFont}>
+          {isEditMode ? "Save Changes" : "Finish Setup"}
+        </Text>
       </TouchableOpacity>
     </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -55,12 +55,12 @@ export default function Journal() {
   const [mood, setMood] = useState("");
 
   const moods = [
-    " Happy ",
-    " Sad ",
-    " Anxious ",
-    " Excited ",
-    " Angry ",
-    " Neutral ",
+    " Happy 😊 ",
+    " Sad 😢 ",
+    " Anxious 😟 ",
+    " Excited 😄 ",
+    " Angry 😡 ",
+    " Neutral 😐 ",
   ];
 
   const handleAddEntry = async () => {
