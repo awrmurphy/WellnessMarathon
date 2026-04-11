@@ -23,20 +23,14 @@ const Onboarding = () => {
   const route = useRoute();
   const isEditMode = route.name === "EditProfile" || loggedUser?.name;
 
-
   const [name, setName] = useState(loggedUser?.name || "");
   const [email, setEmail] = useState(loggedUser?.email || "");
-  const [theme, setTheme] = useState(
-    loggedUser?.preferences?.theme || "Light"
-  );
+  const [theme, setTheme] = useState(loggedUser?.preferences?.theme || "Light");
   const [notifications, setNotifications] = useState(
-    loggedUser?.preferences?.notifications || false
+    loggedUser?.preferences?.notifications || false,
   );
   const [initialGoal, setInitialGoal] = useState("");
   const dispatch = useDispatch();
-
-
-
 
   const handlePress = async () => {
     if (!name || !email) {
@@ -65,7 +59,7 @@ const Onboarding = () => {
           name,
           email,
           preferences: { theme, notifications },
-        })
+        }),
       );
 
       if (newGoal) {
@@ -74,7 +68,7 @@ const Onboarding = () => {
 
       Alert.alert(
         "Success",
-        isEditMode ? "Profile updated!" : "Setup complete!"
+        isEditMode ? "Profile updated!" : "Setup complete!",
       );
     } catch (e) {
       console.error(e);
@@ -84,84 +78,83 @@ const Onboarding = () => {
   };
 
   return (
-<KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
-  <ScrollView style={{ flex: 1, backgroundColor: appStyles.screen.backgroundColor }} contentContainerStyle={{ padding: appStyles.screen.padding }}>
-      <Text style={appStyles.headerText}>
-  {isEditMode ? "Edit Profile" : "Let's set up your profile"}</Text>
-
-
-      <Text> Full Name: </Text>
-      <TextInput style={[appStyles.input, { width: "90%" }]} value={name} onChangeText={setName} />
-      <Text> Email Address: </Text>
-      <TextInput
-        style={[appStyles.input, { width: "90%" }]}
-      <TextInput
-        style={appStyles.input}
-        value={name}
-        autoCapitalize="words"
-        onChangeText={setName}
-      />
-      <Text> Email Address: </Text>
-      <TextInput
-        keyboardType="email-address"
-        style={appStyles.input}
-        value={email}
-        onChangeText={setEmail}
-      />
-      <Text> Theme Preference: </Text>
-      <View style={{ flexDirection: "row" }}>
-        <RadioButton
-          value="Light"
-          status={theme === "Light" ? "checked" : "unchecked"}
-          onPress={() => setTheme("Light")}
-          color={theme === "Light" ? COLORS.ACTIVE : COLORS.INACTIVE}
-        />
-        <Text> Light </Text>
-        <RadioButton
-          value="Dark"
-          status={theme === "Dark" ? "checked" : "unchecked"}
-          onPress={() => setTheme("Dark")}
-          color={theme === "Dark" ? COLORS.ACTIVE : COLORS.INACTIVE}
-        />
-        <Text> Dark </Text>
-      </View>
-      <Text> Notifications: </Text>
-      <View style={{ flexDirection: "row" }}>
-        <Text
-          style={{
-            width: "auto",
-          }}
-        >
-          {" "}
-          {notifications ? " Enabled " : " Disabled "}{" "}
+    <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+      <ScrollView
+        style={{ flex: 1, backgroundColor: appStyles.screen.backgroundColor }}
+        contentContainerStyle={{ padding: appStyles.screen.padding }}
+      >
+        <Text style={appStyles.headerText}>
+          {isEditMode ? "Edit Profile" : "Let's set up your profile"}
         </Text>
-        <Switch
-          style={{ width: "auto" }}
-          value={notifications}
-          onValueChange={(value) => setNotifications(value)}
-          color={COLORS.ACTIVE}
+
+        <Text> Full Name: </Text>
+        <TextInput
+          style={[appStyles.input, { width: "90%" }]}
+          value={name}
+          autoCapitalize="words"
+          onChangeText={setName}
         />
-      </View>
-      {!isEditMode && (
-        <>
-          <Text> First Goal (Optional): </Text>
-          <TextInput
-            style={[appStyles.input, { width: "100%" }]}
-            value={initialGoal}
-            onChangeText={setInitialGoal}
-            placeholder="e.g. Drink more water"
+        <Text> Email Address: </Text>
+        <TextInput
+          keyboardType="email-address"
+          style={[appStyles.input, { width: "90%" }]}
+          value={email}
+          onChangeText={setEmail}
+        />
+        <Text> Theme Preference: </Text>
+        <View style={{ flexDirection: "row" }}>
+          <RadioButton
+            value="Light"
+            status={theme === "Light" ? "checked" : "unchecked"}
+            onPress={() => setTheme("Light")}
+            color={theme === "Light" ? COLORS.ACTIVE : COLORS.INACTIVE}
           />
-        </>
-      )}
-      <TouchableOpacity
-        onPress={handlePress}
-            style={[appStyles.button, { width: "70%", alignSelf: "center" }]}
+          <Text> Light </Text>
+          <RadioButton
+            value="Dark"
+            status={theme === "Dark" ? "checked" : "unchecked"}
+            onPress={() => setTheme("Dark")}
+            color={theme === "Dark" ? COLORS.ACTIVE : COLORS.INACTIVE}
+          />
+          <Text> Dark </Text>
+        </View>
+        <Text> Notifications: </Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text
+            style={{
+              width: "auto",
+            }}
           >
-        <Text style={appStyles.buttonFont}>
-          {isEditMode ? "Save Changes" : "Finish Setup"}
-        </Text>
-      </TouchableOpacity>
-    </ScrollView>
+            {" "}
+            {notifications ? " Enabled " : " Disabled "}{" "}
+          </Text>
+          <Switch
+            style={{ width: "auto" }}
+            value={notifications}
+            onValueChange={(value) => setNotifications(value)}
+            color={COLORS.ACTIVE}
+          />
+        </View>
+        {!isEditMode && (
+          <>
+            <Text> First Goal (Optional): </Text>
+            <TextInput
+              style={[appStyles.input, { width: "100%" }]}
+              value={initialGoal}
+              onChangeText={setInitialGoal}
+              placeholder="e.g. Drink more water"
+            />
+          </>
+        )}
+        <TouchableOpacity
+          onPress={handlePress}
+          style={[appStyles.button, { width: "70%", alignSelf: "center" }]}
+        >
+          <Text style={appStyles.buttonFont}>
+            {isEditMode ? "Save Changes" : "Finish Setup"}
+          </Text>
+        </TouchableOpacity>
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 };
