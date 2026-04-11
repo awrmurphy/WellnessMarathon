@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import appStyles from "../shared/appStyles";
+import { COLORS } from "../shared/constants";
 
 export default function WeightDisplay({
   currentWeight,
@@ -19,7 +20,23 @@ export default function WeightDisplay({
       </Text>
       <Text style={appStyles.plainText}> {currentWeight?.weight} kg </Text>
       {currentWeight ? (
-        <Text style={appStyles.buttonFont}> Last Recorded: {date} </Text>
+        <Text
+          style={[
+            appStyles.plainText,
+            {
+              boxShadow: "2px 2px 3px black",
+              padding: 3,
+              borderWidth: 2,
+              borderColor: COLORS.BORDERS,
+              borderRadius: 8,
+              width: "66%",
+              alignSelf: "center",
+            },
+          ]}
+        >
+          {" "}
+          Last Recorded: {date}{" "}
+        </Text>
       ) : null}
 
       <View>
