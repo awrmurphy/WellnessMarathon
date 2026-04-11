@@ -127,18 +127,21 @@ export default function Tabs() {
           />
         ) : isNewUser ? (
           <Stack.Screen
-            name="On Boarding"
+            name="Onboarding"
             component={Onboarding}
             options={{ headerShown: false }}
           />
         ) : (
-          <Stack.Screen
-            name="Main"
-            component={BaseTabs}
-            options={{
-              headerShown: false,
-            }}
-          />
+          <>
+            <Stack.Screen
+              name="Main"
+              component={BaseTabs}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen name="EditProfile" component={Onboarding} />
+          </>
         )}
       </Stack.Navigator>
     </NavigationContainer>

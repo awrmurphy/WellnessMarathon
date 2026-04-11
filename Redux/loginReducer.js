@@ -19,8 +19,8 @@ export const loginUser = createAsyncThunk(
           username: username,
           email: userData.email || `${username}@example.com`,
           preferences: userData.preferences || {
-            theme: "Light",
-            notifications: false,
+          theme: "Light",
+          notifications: false,
           },
         };
       }
@@ -39,10 +39,18 @@ export const registerUser = createAsyncThunk(
       const userSnap = await getDoc(userRef);
       if (userSnap.exists()) return rejectWithValue("Username taken");
 
-      const newUser = { password, goals: [], journal: [] };
+      const newUser = {
+          password,
+          goals: [],
+          journal: [],
+          name: "",
+          email: "",
+          preferences: { theme: "Light", notifications: false },
+        };
       await setDoc(userRef, newUser);
       return {
-        username,
+        username: username,
+        name: "", 
         email: `${username}@example.com`,
         preferences: { theme: "Light", notifications: false },
       };
