@@ -109,8 +109,8 @@ export default function Tabs() {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" color={COLORS.ACTIVE} />
-        <Text style={{ marginTop: 10, color: COLORS.ACTIVE }}>
-          Loading your profile...{" "}
+        <Text style={{ width: "auto", marginTop: 10, color: COLORS.ACTIVE }}>
+          Loading your profile...{"\t "}
         </Text>
       </View>
     );

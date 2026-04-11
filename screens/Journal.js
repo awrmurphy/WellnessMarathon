@@ -62,16 +62,51 @@ export default function Journal() {
     " Neutral ",
   ];
 
-  const handleAddEntry = () => {
-    if (journalEntry.trim() && mood) {
-      dispatch(addEntryToUser({ text: journalEntry, mood }));
+  const handleAddEntry = async () => {
+    const trimmedEntry = journalEntry.trim();
+
+    if (!trimmedEntry) {
+      Alert.alert(
+        "Missing Content",
+        "Please write something in your journal entry.",
+      );
+      return;
+    }
+    if (!mood) {
+      Alert.alert("Missing Mood", "Please select a mood before saving.");
+      return;
+    }
+
+    try {
+      await dispatch(addEntryToUser({ text: trimmedEntry, mood })).unwrap();
       setJournalEntry("");
       setMood("");
+    } catch (err) {
+      Alert.alert(
+        "Cloud Sync Error",
+        "Your entry was not saved. Please try again later.",
+      );
     }
   };
 
   const handleDeleteEntry = (item) => {
-    dispatch(deleteEntryFromUser(item));
+    Alert.alert("Delete Entry", "Are you sure you want to remove this entry?", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: async () => {
+          try {
+            await dispatch(deleteEntryFromUser(item)).unwrap();
+          } catch (err) {
+            Alert.alert(
+              "Delete Failed",
+              "The entry could not be removed from the server.",
+            );
+          }
+        },
+      },
+    ]);
   };
 
   return (

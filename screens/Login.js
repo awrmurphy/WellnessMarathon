@@ -10,7 +10,7 @@ import { useState } from "react";
 import appStyles from "../shared/appStyles";
 
 import { useDispatch } from "react-redux";
-import { loginUser, registerUser } from "../Redux/loginReducer";
+import { loginUser, registerUser, toOnBoard } from "../Redux/loginReducer";
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -32,7 +32,19 @@ export default function Login() {
     if (username && password) {
       try {
         await dispatch(registerUser({ username, password })).unwrap();
-        Alert.alert("Success", "Account Created!");
+        Alert.alert(
+          "Success",
+          "Account Created!",
+          [
+            {
+              text: "OK",
+              onPress: () => {
+                dispatch(toOnBoard());
+              },
+            },
+          ],
+          { cancelable: false },
+        );
       } catch (err) {
         Alert.alert("Registration Failed", err);
       }
@@ -62,7 +74,7 @@ export default function Login() {
           style={appStyles.input}
           value={password}
           onChangeText={setPassword}
-          placeholder="password"
+          placeholder="Password "
           secureTextEntry={true}
           inputMode="text"
           autoCapitalize="none"

@@ -57,6 +57,7 @@ const Onboarding = () => {
         dispatch(setGoals([newGoal]));
       }
     } catch (e) {
+      Alert.alert("Error", "Error creating profile");
       console.error("Error updating profile: ", e);
     }
   };
@@ -65,9 +66,15 @@ const Onboarding = () => {
     <ScrollView>
       <Text style={appStyles.headerText}>Let's set up your profile</Text>
       <Text> Full Name: </Text>
-      <TextInput style={appStyles.input} value={name} onChangeText={setName} />
+      <TextInput
+        style={appStyles.input}
+        value={name}
+        autoCapitalize="words"
+        onChangeText={setName}
+      />
       <Text> Email Address: </Text>
       <TextInput
+        keyboardType="email-address"
         style={appStyles.input}
         value={email}
         onChangeText={setEmail}
