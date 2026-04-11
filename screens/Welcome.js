@@ -25,6 +25,7 @@ export default function Welcome() {
         setWeight(data.results[data.results.length - 1]);
       }
     } catch (e) {
+      Alert.alert("Error", "Error fetching latest weight");
       console.error(e);
     } finally {
       setLoading(false);

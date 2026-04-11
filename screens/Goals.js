@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
+  Alert,
 } from "react-native";
 import appStyles from "../shared/appStyles";
 
@@ -24,27 +25,72 @@ export default function Goals() {
   const [editingId, setEditingId] = useState(null);
   const [selectedGoalId, setSelectedGoalId] = useState(null);
 
-  const addGoalHandler = () => {
+  const addGoalHandler = async () => {
     if (goalText.trim()) {
-      dispatch(addGoalToUser(goalText));
-      setGoalText("");
+      try {
+        await dispatch(addGoalToUser(goalText)).unwrap();
+        setGoalText("");
+      } catch (e) {
+        Alert.alert("Error", "Error saving goal to cloud");
+      }
+    } else {
+      Alert.alert("Invalid Input", "Goal cannot be empty.");
     }
   };
-  const handleSaveGoal = () => {
+
+  const handleSaveGoal = async () => {
     const goalToEdit = goals.find((g) => g.id === editingId);
-    if (goalText.trim() && editingId) {
-      dispatch(editGoalInUser({ goalObject: goalToEdit, newText: goalText }));
+    const trimmedText = goalText.trim();
+
+    if (!trimmedText || !editingId) {
+      Alert.alert("Invalid Input", "The goal description cannot be empty.");
+      return;
+    }
+
+    try {
+      await dispatch(
+        editGoalInUser({
+          goalObject: goalToEdit,
+          newText: trimmedText,
+        }),
+      ).unwrap();
       setGoalText("");
       setEditingId(null);
+      setSelectedGoalId(null);
+    } catch (err) {
+      Alert.alert(
+        "Update Failed",
+        "We couldn't save your changes to the cloud. Please try again.",
+      );
     }
   };
 
-  const handleToggleGoalCompletion = (item) => {
-    dispatch(toggleGoalInUser(item));
+  const handleToggleGoalCompletion = async (item) => {
+    try {
+      await dispatch(toggleGoalInUser(item)).unwrap();
+    } catch (err) {
+      Alert.alert("Update Failed", "Failed to update goal status.");
+    }
   };
 
-  const handleDeleteGoal = (item) => {
-    dispatch(deleteGoalFromUser(item));
+  const handleDeleteGoal = async (item) => {
+    Alert.alert("Delete Goal", "Are you sure you want to remove this goal?", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: async () => {
+          try {
+            await dispatch(deleteGoalFromUser(item)).unwrap();
+          } catch (err) {
+            Alert.alert(
+              "Delete Failed",
+              "The goal could not be removed from the server.",
+            );
+          }
+        },
+      },
+    ]);
   };
 
   const editGoal = (item) => {

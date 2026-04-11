@@ -78,6 +78,8 @@ const Onboarding = () => {
       );
     } catch (e) {
       console.error(e);
+      Alert.alert("Error", "Error creating profile");
+      console.error("Error updating profile: ", e);
     }
   };
 
@@ -93,6 +95,16 @@ const Onboarding = () => {
       <Text> Email Address: </Text>
       <TextInput
         style={[appStyles.input, { width: "90%" }]}
+      <TextInput
+        style={appStyles.input}
+        value={name}
+        autoCapitalize="words"
+        onChangeText={setName}
+      />
+      <Text> Email Address: </Text>
+      <TextInput
+        keyboardType="email-address"
+        style={appStyles.input}
         value={email}
         onChangeText={setEmail}
       />

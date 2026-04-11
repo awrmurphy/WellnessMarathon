@@ -78,6 +78,7 @@ function BaseTabs() {
           <TouchableOpacity
             onPress={() => dispatch(logout())}
             title="Log Out"
+            style={{ marginRight: 6 }}
             color={Platform.OS === "ios" ? "#fff" : "#ee4c4c"}
           >
             <Entypo name="log-out" size={24} color="#fff" />
@@ -109,8 +110,8 @@ export default function Tabs() {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ActivityIndicator size="large" color={COLORS.ACTIVE} />
-        <Text style={{ marginTop: 10, color: COLORS.ACTIVE }}>
-          Loading your profile...{" "}
+        <Text style={{ width: "auto", marginTop: 10, color: COLORS.ACTIVE }}>
+          Loading your profile...{"\t "}
         </Text>
       </View>
     );
